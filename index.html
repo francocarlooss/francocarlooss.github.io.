@@ -5,139 +5,123 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Franco Carlos</title>
   <meta name="description" content="Franco Carlos, estudiante de Ciencias de la Computación en la Universidad Católica San Pablo, Arequipa, Perú.">
+  <script>document.documentElement.classList.add("js");</script>
   <style>
-    :root {
-      --fondo: #000000;
-      --texto: #f2f4f8;
-      --suave: #a9b3c4;
-      --azul: #ffffff;
-      --linea: #333333;
-    }
+    :root { --v:#1e3a8a; --r:#2d4fa8; --c:#0f1f3d; --a:#274690; --g:#5b78c7; --suave:#4a5a78; --texto:#0f1f3d; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      background: var(--fondo);
-      color: var(--texto);
+      background: #fff; color: var(--texto); line-height: 1.7; overflow-x: hidden;
       font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
-      line-height: 1.7;
     }
-    .contenedor {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 28px;
+    /* Fondo con luces que se mueven */
+    body::before, body::after {
+      content: ""; position: fixed; width: 70vmax; height: 70vmax; border-radius: 50%;
+      filter: blur(90px); opacity: .13; z-index: -1; pointer-events: none;
     }
+    body::before { top: -30vmax; left: -20vmax; background: radial-gradient(circle, var(--v), transparent 65%); animation: flota 18s ease-in-out infinite alternate; }
+    body::after { bottom: -30vmax; right: -20vmax; background: radial-gradient(circle, var(--r), transparent 65%); animation: flota 22s ease-in-out infinite alternate-reverse; }
+    @keyframes flota { to { transform: translate(12vmax, 8vmax) scale(1.15); } }
+
+    .contenedor { max-width: 1000px; margin: 0 auto; padding: 0 28px; }
+    a { color: var(--c); text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--texto); outline-offset: 3px; }
+
+    /* Atajos */
+    .atajos { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.88); backdrop-filter: blur(8px); border-bottom: 1px solid #d7dfee; }
+    .atajos-inner { max-width: 1000px; margin: 0 auto; padding: 14px 28px; display: flex; gap: 24px; overflow-x: auto; white-space: nowrap; }
+    .atajos a { color: var(--suave); font-weight: 500; }
+    .atajos a:hover { color: var(--texto); text-decoration: none;  }
 
     /* Cabecera */
-    header {
-      display: flex;
-      align-items: flex-start;
-      gap: 40px;
-      padding-top: 80px;
+    header { display: flex; align-items: center; gap: 44px; padding-top: 70px; }
+    .foto { position: relative; flex: none; width: 190px; height: 190px; border-radius: 50%; filter: drop-shadow(0 0 20px rgba(30,58,138,.35)); }
+    .foto::before {
+      content: ""; position: absolute; inset: -6px; border-radius: 50%;
+      background: conic-gradient(var(--v), var(--r), var(--a), var(--g), var(--c), var(--v));
+      animation: giro 7s linear infinite;
     }
-    .foto {
-      flex: 0 0 auto;
-      width: 190px;
-      height: 190px;
-      border-radius: 50%;
-      border: 3px solid #3a3a3a;
-      background: #0a0a0a;
-      box-shadow: 0 0 30px rgba(255, 255, 255, .22);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--azul);
-      overflow: hidden;
-    }
-    .foto img { width: 100%; height: 100%; object-fit: cover; }
+    .foto img { position: relative; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid #fff; display: block; }
+    @keyframes giro { to { transform: rotate(360deg); } }
     h1 {
-      font-size: clamp(2.4rem, 7vw, 4.2rem);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      font-weight: 700;
-      color: #fff;
+      font-size: clamp(2.5rem, 8vw, 4.6rem); line-height: 1.05; letter-spacing: -.02em; font-weight: 800;
+      background: linear-gradient(90deg, var(--texto), var(--g), var(--v), var(--texto)); background-size: 300% 100%;
+      -webkit-background-clip: text; background-clip: text; color: transparent; animation: brillo 9s linear infinite;
     }
-    .descripcion {
-      margin-top: 14px;
-      max-width: 56ch;
-      color: var(--suave);
-      font-size: 1.1rem;
+    @keyframes brillo { to { background-position: -300% 0; } }
+    .rol { margin-top: 12px; font-size: 1.25rem; color: var(--a); min-height: 2em; }
+    .rol::after { content: "|"; margin-left: 2px; animation: parpadeo 1s steps(1) infinite; }
+    @keyframes parpadeo { 50% { opacity: 0; } }
+    .descripcion { margin-top: 6px; max-width: 54ch; color: var(--suave); font-size: 1.05rem; }
+    .btn {
+      display: inline-block; margin-top: 18px; padding: 9px 24px; border-radius: 999px; color: var(--texto);
+      border: 2px solid transparent; background: linear-gradient(#fff,#fff) padding-box, linear-gradient(90deg, var(--v), var(--r), var(--a)) border-box;
+      transition: box-shadow .25s;
     }
-    .enlaces {
-      margin-top: 18px;
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-    a { color: var(--azul); text-decoration: none; font-weight: 600; }
-    a:hover { text-decoration: underline; }
-    a:focus-visible { outline: 2px solid var(--azul); outline-offset: 3px; }
+    .btn:hover { text-decoration: none; box-shadow: 0 0 22px rgba(30,58,138,.35); }
 
-    /* Línea con pico */
-    .divisor { display: block; width: 100%; height: 50px; margin-top: 50px; }
+    /* Cifras */
+    .cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+    .cifra { text-align: center; padding: 22px 10px; border: 1px solid #cfd8e8; border-radius: 16px; background: rgba(15,31,61,.04); }
+    .cifra b { display: block; font-size: 2.4rem; line-height: 1.1; color: var(--k); }
+    .cifra span { color: var(--suave); font-size: .92rem; }
 
     /* Secciones */
-    section {
-      display: grid;
-      grid-template-columns: 210px 1fr;
-      gap: 20px;
-      padding: 44px 0;
-      border-bottom: 1px solid var(--linea);
-    }
+    section { display: grid; grid-template-columns: 210px 1fr; gap: 20px; padding: 50px 0; border-bottom: 1px solid #d7dfee; scroll-margin-top: 60px; }
     section:last-of-type { border-bottom: none; }
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--azul);
-    }
+    h2 { font-size: 1.55rem; font-weight: 800; color: var(--c); }
     .contenido p { margin-bottom: 16px; max-width: 62ch; }
     .contenido p:last-child { margin-bottom: 0; }
-    .item {
-      border-left: 4px solid #3a3a3a;
-      padding: 6px 0 6px 18px;
-      max-width: 62ch;
-    }
+    .item { border-left: 4px solid var(--c); padding: 6px 0 6px 18px; max-width: 62ch; }
     .item a { font-weight: 400; text-decoration: underline; }
 
-
     .lista { list-style: none; max-width: 62ch; }
-    .lista li { padding: 8px 0 8px 18px; border-left: 4px solid #3a3a3a; margin-bottom: 8px; word-break: break-all; }
+    .lista li { padding: 8px 0 8px 18px; border-left: 4px solid var(--c); margin-bottom: 8px; word-break: break-all; transition: padding .2s, background .2s; }
+    .lista li:hover { padding-left: 26px; background: linear-gradient(90deg, rgba(15,31,61,.07), transparent); }
     .lista a { font-weight: 400; }
-
-
-    html { scroll-behavior: smooth; }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-    .atajos {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(0, 0, 0, .92);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--linea);
-    }
-    .atajos-inner {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 14px 28px;
-      display: flex;
-      gap: 26px;
-      flex-wrap: wrap;
-    }
-    .atajos a { font-weight: 500; color: var(--suave); }
-    .atajos a:hover, .atajos a:focus-visible { color: #fff; text-decoration: none; }
-    section { scroll-margin-top: 60px; }
     .cursos li { word-break: normal; font-weight: 600; }
+    .cursos li:nth-child(1) { border-color: var(--v); } .cursos li:nth-child(2) { border-color: var(--r); }
+    .cursos li:nth-child(3) { border-color: var(--a); } .cursos li:nth-child(4) { border-color: var(--g); }
 
-    footer {
-      padding: 30px 0 60px;
-      color: var(--suave);
-      font-size: .9rem;
-    }
+    .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+    .chips li { padding: 8px 18px; border: 1px solid var(--k); color: var(--k); border-radius: 999px; background: rgba(15,31,61,.04); transition: transform .2s, background .2s, color .2s, box-shadow .2s; }
+    .chips li:hover { transform: translateY(-3px); background: var(--k); color: #fff; box-shadow: 0 6px 18px -6px var(--k); }
+    .chips li:nth-child(5n+1), .cifra:nth-child(1) { --k: var(--v); }
+    .chips li:nth-child(5n+2), .cifra:nth-child(2) { --k: var(--r); }
+    .chips li:nth-child(5n+3), .cifra:nth-child(3) { --k: var(--a); }
+    .chips li:nth-child(5n+4) { --k: var(--g); }
+    .chips li:nth-child(5n+5) { --k: var(--c); }
+
+    .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .tarjeta { padding: 22px; border-radius: 16px; background: rgba(15,31,61,.05); border: 1px solid #cfd8e8; border-top: 3px solid var(--k); transition: transform .25s, box-shadow .25s; }
+    .tarjeta:hover { transform: translateY(-6px); box-shadow: 0 10px 30px -8px var(--k); }
+    .tarjeta h3 { font-size: 1.08rem; margin-bottom: 6px; color: var(--k); }
+    .tarjeta p { margin: 0; color: var(--suave); font-size: .95rem; }
+    .tarjeta:nth-child(1) { --k: var(--r); } .tarjeta:nth-child(2) { --k: var(--a); } .tarjeta:nth-child(3) { --k: var(--g); }
+
+    .metas { list-style: none; border-left: 2px solid transparent; border-image: linear-gradient(var(--v), var(--r), var(--a), var(--g)) 1; margin-left: 8px; }
+    .metas li { position: relative; padding: 0 0 26px 26px; max-width: 58ch; }
+    .metas li::before { content: ""; position: absolute; left: -9px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--k); box-shadow: 0 0 0 4px rgba(30,58,138,.12); }
+    .metas li:nth-child(1) { --k: var(--v); } .metas li:nth-child(2) { --k: var(--r); } .metas li:nth-child(3) { --k: var(--a); } .metas li:nth-child(4) { --k: var(--g); }
+    .metas b { color: var(--k); display: block; }
+
+    footer { padding: 36px 0 60px; color: var(--suave); font-size: .9rem; text-align: center; }
+
+    /* Aparición al hacer scroll */
+    .js .rev { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .js .rev.ver { opacity: 1; transform: none; }
 
     @media (max-width: 720px) {
-      header { flex-direction: column; gap: 24px; padding-top: 40px; }
-      .atajos-inner { gap: 16px; padding: 12px 20px; }
+      header { flex-direction: column; text-align: center; gap: 24px; padding-top: 40px; }
       section { grid-template-columns: 1fr; gap: 10px; }
+      .cifras { grid-template-columns: 1fr; }
+      .atajos-inner { gap: 18px; padding: 12px 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .rev { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -147,49 +131,45 @@
       <a href="#sobre-mi">Sobre mí</a>
       <a href="#formacion">Formación</a>
       <a href="#cursos">Cursos</a>
+      <a href="#herramientas">Herramientas</a>
+      <a href="#intereses">Intereses</a>
+      <a href="#fortalezas">Fortalezas</a>
+      <a href="#metas">Metas</a>
       <a href="#companeros">Compañeros</a>
     </div>
   </nav>
+
   <div class="contenedor">
     <header>
       <div class="foto"><img src="foto.jpg" alt="Foto de perfil de Franco Carlos"></div>
       <div>
         <h1>Franco Carlos</h1>
+        <p class="rol" id="escribe" aria-live="polite">Estudiante de Ciencias de la Computación</p>
         <p class="descripcion">
-          Estudiante de Ciencias de la Computación en la Universidad Católica San Pablo,
-          Arequipa, Perú. Interesado en el desarrollo de software mediante distintos
-          lenguajes como Python.
+          Universidad Católica San Pablo, Arequipa, Perú. Interesado en el desarrollo de
+          software mediante distintos lenguajes como Python.
         </p>
-        <nav class="enlaces" aria-label="Enlaces">
-          <a href="https://github.com/francocarlos" target="_blank" rel="noopener">GitHub</a>
-          <!-- Agrega aquí más enlaces si quieres, por ejemplo:
-          <a href="https://www.linkedin.com/in/tu-perfil" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="mailto:tucorreo@ucsp.edu.pe">Correo</a> -->
-        </nav>
+        <a class="btn" href="https://github.com/francocarlooss" target="_blank" rel="noopener">Mi GitHub</a>
       </div>
     </header>
 
-    <svg class="divisor" viewBox="0 0 1000 50" preserveAspectRatio="none" aria-hidden="true">
-      <polyline points="0,46 300,36 480,30 520,24 540,28 700,36 1000,46"
-                fill="none" stroke="#444444" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
-    </svg>
+    <div class="cifras rev">
+      <div class="cifra"><b data-to="4">0</b><span>cursos este ciclo</span></div>
+      <div class="cifra"><b data-to="2026">0</b><span>año de ingreso a la carrera</span></div>
+      <div class="cifra"><b data-to="18">0</b><span>webs de compañeros en esta lista</span></div>
+    </div>
 
     <main>
-      <section id="sobre-mi">
+      <section id="sobre-mi" class="rev" style="--c:#1e3a8a">
         <h2>Sobre mí</h2>
         <div class="contenido">
-          <p>
-            Soy Franco Carlos, estudiante de Ciencias de la Computación en la
-            Universidad Católica San Pablo, en Arequipa, Perú.
-          </p>
-          <p>
-            Me interesa el desarrollo de software y aprender distintos lenguajes de
-            programación, entre ellos Python.
-          </p>
+          <p>Soy Franco Carlos, estudiante de Ciencias de la Computación en la Universidad Católica San Pablo, en Arequipa, Perú.</p>
+          <p>Me interesa el desarrollo de software y aprender distintos lenguajes de programación, entre ellos Python.</p>
+          <p>Este sitio es mi carta de presentación: aquí comparto mis estudios, mis intereses y lo que estoy aprendiendo.</p>
         </div>
       </section>
 
-      <section id="formacion">
+      <section id="formacion" class="rev" style="--c:#2d4fa8">
         <h2>Formación</h2>
         <div class="contenido">
           <div class="item">
@@ -200,7 +180,7 @@
         </div>
       </section>
 
-      <section id="cursos">
+      <section id="cursos" class="rev" style="--c:#0f1f3d">
         <h2>Cursos</h2>
         <div class="contenido">
           <p>Cursos que llevo actualmente:</p>
@@ -213,7 +193,59 @@
         </div>
       </section>
 
-      <section id="companeros">
+      <section id="herramientas" class="rev" style="--c:#274690">
+        <h2>Herramientas</h2>
+        <div class="contenido">
+          <p>Con lo que estoy trabajando y aprendiendo:</p>
+          <ul class="chips">
+            <li>Python</li>
+            <li>GitHub</li>
+            <li>GitHub Pages</li>
+            <li>HTML y CSS</li>
+            <li>Pensamiento lógico</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="intereses" class="rev" style="--c:#1e3a8a">
+        <h2>Intereses</h2>
+        <div class="contenido">
+          <ul class="chips">
+            <li>Desarrollo de software</li>
+            <li>Algoritmos</li>
+            <li>Matemáticas para computación</li>
+            <li>Aprender nuevos lenguajes</li>
+            <li>Crear herramientas útiles</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="fortalezas" class="rev" style="--c:#1e3a8a">
+        <h2>Fortalezas</h2>
+        <div class="contenido">
+          <!-- Edita estos textos para que reflejen cómo eres realmente -->
+          <div class="tarjetas">
+            <article class="tarjeta"><h3>Resolución de problemas</h3><p>Me gusta dividir un problema grande en partes pequeñas y resolverlas una por una.</p></article>
+            <article class="tarjeta"><h3>Pensamiento lógico</h3><p>Practico lógica y fundamentos matemáticos en mis cursos de la carrera.</p></article>
+            <article class="tarjeta"><h3>Aprendizaje constante</h3><p>Estoy al inicio de la carrera y busco aprender algo nuevo cada semana.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="metas" class="rev" style="--c:#0f1f3d">
+        <h2>Metas</h2>
+        <div class="contenido">
+          <!-- Edita estas metas según tus planes -->
+          <ol class="metas">
+            <li><b>Ahora</b>Afianzar las bases de programación y lógica.</li>
+            <li><b>Siguiente paso</b>Aprender algoritmos y estructuras de datos.</li>
+            <li><b>Pronto</b>Construir mis primeros proyectos de software.</li>
+            <li><b>A futuro</b>Trabajar creando soluciones tecnológicas.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="companeros" class="rev" style="--c:#1e3a8a">
         <h2>Compañeros</h2>
         <div class="contenido">
           <p>Páginas web de mis compañeros de Ciencias de la Computación.</p>
@@ -243,5 +275,43 @@
 
     <footer>© 2026 Franco Carlos</footer>
   </div>
+
+  <script>
+    (function () {
+      var frases = ["Estudiante de Ciencias de la Computación", "Aprendiendo Python", "Futuro desarrollador de software"];
+      var el = document.getElementById("escribe"), reducir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var f = 0, i = frases[0].length, borrando = false;
+      function escribir() {
+        el.textContent = frases[f].slice(0, i);
+        var t = borrando ? 35 : 75;
+        if (!borrando && i === frases[f].length) { borrando = true; t = 1800; }
+        else if (borrando && i === 0) { borrando = false; f = (f + 1) % frases.length; t = 400; }
+        i += borrando ? -1 : 1;
+        setTimeout(escribir, t);
+      }
+      if (!reducir) { setTimeout(function () { borrando = true; escribir(); }, 2200); }
+
+      var cifras = document.querySelectorAll("[data-to]");
+      function contar(n) {
+        var fin = +n.dataset.to, ini = performance.now();
+        (function paso(ahora) {
+          var p = Math.min((ahora - ini) / 1400, 1);
+          n.textContent = Math.round(fin * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(paso);
+        })(ini);
+      }
+      var visto = false;
+      var obs = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("ver");
+          if (!visto && e.target.classList.contains("cifras")) { visto = true; cifras.forEach(contar); }
+          obs.unobserve(e.target);
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll(".rev").forEach(function (s) { obs.observe(s); });
+      if (reducir) cifras.forEach(function (n) { n.textContent = n.dataset.to; });
+    })();
+  </script>
 </body>
 </html>
